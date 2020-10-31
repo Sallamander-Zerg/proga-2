@@ -1,45 +1,47 @@
-#include <stdio.h>
- #include <fcntl.h>
- #include <sys/types.h>
+ #include <stdio.h>
+#include <fcntl.h>
+#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/mman.h>
+
+
+
 int main()
 {
-        int a;
-	int lm=0;
-	int nm=0;
-     	int line[100][100];
-     	char ch;
-    	FILE *file = fopen("hello.txt","r");
-    	int *ptr = mmap ( NULL, line*sizeof(int),
-	PROT_READ | PROT_WRITE,
-	MAP_PRIVATE | MAP_ANONYMOUS,
-	0, 0 ); 
-    	line[0][0];
-    while (read(file, &ch , sizeof(char))>0){
-        nm++;
-        if (ch == ('\n')) {  
-          line[lm][0]=nm;
-          line[lm-1][1]=nm-line[lm-1][0];
-          lm ++;
-          }
-        
-          }
-               scanf("%d", &a); 
-      //lseek(file,line[a][0],SEEK_SET);
-      //for(int i=0;i<line[a][1];i++){
-      //read(file, &ch , sizeof(char));
-      //printf("%c",ch);
-      //}for(int i=0; i ");
-for(int i=0; i<line[a][1]; i++){
-printf("[%d] ",line[i][1]);
+int a;
+int lm=0;
+int nm=0;
+int line[100][100];
+char ch;
+void *mmap(void *addr, size_t len, int prot, int flag, int filedes, off_t off);
+ANDLE file = CreateFile("text.txt", GENERIC_READ, 0, nullptr,
+                          OPEN_EXISTING,
+                          FILE_ATTRIBUTE_NORMAL, nullptr);
+if(hFile == INVALID_HANDLE_VALUE) {
+  std::cerr << "fileMappingCreate - CreateFile failed, fname = "
+            << fname << std::endl;
+  return nullptr;
+}
+struct FileMapping {
+  HANDLE hFile;
+  HANDLE hMapping;
+  size_t fsize;
+  unsigned char* dataPtr;
+};
+while (read(file, &ch , sizeof(char))>0){
+nm++;
+if (ch == ('\n')) {
+line[lm][0]=nm;
+line[lm-1][1]=nm-line[lm-1][0];
+lm ++;
 }
 
-printf("\n");
-int err = munmap(line, 10*sizeof(int));
-
-if(err != 0){
-printf("UnMapping Failed\n");
-return 1;
-} 
-    return 0;
+}
+scanf("%d", &a);
+fseek(file,line[a][0],SEEK_SET);
+for(int i=0;i<line[a][1];i++){
+read(file, &ch , sizeof(char));
+printf("%c",ch);
+}
+return 0;
 }
