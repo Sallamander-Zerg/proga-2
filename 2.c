@@ -14,12 +14,9 @@ int nm=0;
 int line[100][100];
 char ch;
 void *mmap(void *addr, size_t len, int prot, int flag, int filedes, off_t off);
-ANDLE file = CreateFile("text.txt", GENERIC_READ, 0, nullptr,
-                          OPEN_EXISTING,
-                          FILE_ATTRIBUTE_NORMAL, nullptr);
-if(hFile == INVALID_HANDLE_VALUE) {
-  std::cerr << "fileMappingCreate - CreateFile failed, fname = "
-            << fname << std::endl;
+if(fd < 0) {
+  std::cerr << "fileMappingCreate - open failed, fname =  "
+            << fname << ", " << strerror(errno) << std::endl;
   return nullptr;
 }
 struct FileMapping {
